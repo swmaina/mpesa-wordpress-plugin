@@ -1,0 +1,16 @@
+.woompesa-checkout-help {
+	margin-top: 0.75rem;
+	color: #50575e;
+	font-size: 0.95em;
+}
+
+.woompesa-blocks-field label {
+	display: block;
+	margin-bottom: 0.35rem;
+	font-weight: 600;
+}
+
+.woompesa-blocks-field input {
+	width: 100%;
+	max-width: 24rem;
+}
