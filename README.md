@@ -1,44 +1,85 @@
-# Woocommerce M-pesa Payment Gateway (Vodacom) 
-This plugin allows your e-commerce to have an option of paying using M-PESA mobile money service from a WordPress website/application that has WooCommerce plugin installed.
+# M-PESA Tanzania for WooCommerce
 
-The plugin adds an option on the checkout section for paying through M-PESA (a mobile payment platform).
+M-PESA Tanzania for WooCommerce is a WordPress payment gateway plugin for stores that want to accept Vodacom Tanzania M-Pesa payments through WooCommerce.
 
-## Pre-requirements
-  1. Create an account on [M-pesa Developer Portal](https://developer.mpesa.vm.co.mz/);
-  2. Read a little bit the oficial documentation, just in case;
-  3. [Clone](https://github.com/herquiloidehele/mpesa-wordpress-plugin) or [Download](https://codeload.github.com/herquiloidehele/mpesa-wordpress-plugin/zip/master) the zipped plugin 
-  
+This build is tailored for Tanzanian Shilling (`TZS`) stores and uses the M-Pesa OpenAPI flow for customer-to-business checkout requests.
+
+## Features
+
+- Accept M-Pesa Tanzania payments during WooCommerce checkout
+- Collect the customer's Tanzania phone number at checkout
+- Support sandbox and live OpenAPI credentials
+- Built-in WooCommerce Blocks compatibility
+- Callback URL support for provider-side integrations
+- Diagnostics page for credentials, cron, currency, and environment checks
+- Debug logging through WooCommerce logs
+
+## Requirements
+
+- WordPress with WooCommerce installed and active
+- WooCommerce 7.9 or newer
+- Store currency set to `TZS`
+- OpenSSL enabled on the server
+- Valid Vodacom Tanzania M-Pesa OpenAPI credentials
+
 ## Installation
- 1. Go to Plugins -> Add New
- 2. On top of the page, click “Upload Plugin” button
- 3. Click  on “Choose File” button
- 4. Select the ZIP file from your computer
- 5. Click “Install Now” button
- 6. Wait for a few seconds for WordPress to complete the installation
- 7. And click "Activate" to activate the plugin
-  
- ## Configuration
- 1. After successfull installed and activate the plugin, go to Woocommerce > Setting > Payments tab, its supposed to appear the M-pesa payment method listed. Activate it and them click on "Manage".
- 
-![Image 1](https://raw.githubusercontent.com/herquiloidehele/mpesa-wordpress-plugin/master/img/image2.png)
- 
-  Inside the M-pesa Management page you will need to fill the information and configuration fields:  
-  
-  ![Image 2](https://github.com/herquiloidehele/mpesa-wordpress-plugin/blob/master/img/image1.PNG?raw=true)
 
+1. Download this repository as a ZIP, or clone it locally.
+2. In WordPress admin, go to `Plugins > Add New Plugin`.
+3. Click `Upload Plugin`.
+4. Choose the plugin ZIP file and click `Install Now`.
+5. Activate the plugin after installation completes.
 
-#### Note: All this configuration Fields can be found in [M-pesa Developer Portal](https://developer.mpesa.vm.co.mz)
+## Configuration
 
+1. Go to `WooCommerce > Settings > Payments`.
+2. Find `M-Pesa Tanzania` and enable it.
+3. Click `Manage`.
+4. Set the checkout title and description shown to customers.
+5. Choose whether to use sandbox credentials or live credentials.
+6. Fill in the required credentials for the selected mode:
+   - API Key
+   - API Host
+   - Public Key
+   - Service Provider Code
+7. Optionally set the `Origin` value if your OpenAPI app requires it.
+8. Save changes.
 
-## Aspects to consider when deploying your application
-  1. Make sure that the port 18352 is opened in your server.\
-  1.1 If not, you must open it, because this is the port used to comunicate between this plugin and Mpesa API.\
-  1.2 In case you are using a shared hosting service to host your application, you will have to contact the support and ask them to open this port.
+The plugin generates a unique third-party conversation ID automatically, so the older manual conversation ID fields are not required.
 
+## Checkout Flow
+
+1. The customer selects `M-Pesa Tanzania` at checkout.
+2. The customer enters a Tanzania mobile number.
+3. WooCommerce submits the order and triggers the M-Pesa request.
+4. The customer confirms the payment on their phone.
+5. The order updates when the transaction is confirmed and reconciled.
+
+## Diagnostics
+
+The plugin adds a diagnostics page in `WooCommerce > M-Pesa Diagnostics`.
+
+Use it to verify:
+
+- Store currency is `TZS`
+- OpenSSL is available
+- Required credentials are present
+- Callback URL is reachable and correctly generated
+- Reconciliation cron is scheduled
+- WooCommerce Blocks support is detected
+
+You can also trigger a manual reconciliation run from that page.
+
+## Callback URL
+
+The gateway shows its callback URL on the payment settings page. Use that URL anywhere your M-Pesa provider-side setup expects a callback or notification endpoint.
+
+## Notes
+
+- This build is intended for Tanzania stores and hides itself when the WooCommerce currency is not `TZS`.
+- Sandbox and live credentials are stored separately.
+- Debug logging can be enabled from the gateway settings when troubleshooting.
 
 ## License
-This library is release under the [MIT](https://github.com/herquiloidehele/mpesa-woocommerce-plugin/blob/master/LICENSE) License. See [LICENSE file for details](https://github.com/herquiloidehele/mpesa-woocommerce-plugin/blob/master/LICENSE).
 
-## TODO
-* Improve documentation
-* Add examples and Tests
+This project is released under the MIT License. See the [LICENSE](LICENSE) file for details.
